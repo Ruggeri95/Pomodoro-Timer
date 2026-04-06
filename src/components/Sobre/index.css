@@ -1,0 +1,202 @@
+.sobre-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  font-family: sans-serif;
+  background-color: white;
+  margin: 3em 0;
+  border-radius: 2em;
+}
+
+.sobre-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 2rem;
+}
+.sobre-tomato {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.sobre-hero h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #1a1a1a;
+}
+.sobre-hero p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.sobre-section {
+  margin-bottom: 2rem;
+}
+.sobre-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem;
+}
+.sobre-section p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.8;
+  margin: 0 0 0.75rem;
+}
+.sobre-section strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.sobre-quote {
+  border-left: 3px solid #e74c3c;
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  background: #fff5f5;
+  border-radius: 0 8px 8px 0;
+}
+.sobre-quote p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.sobre-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 1rem 0;
+}
+.sobre-card {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+.sobre-card-label {
+  font-size: 12px;
+  color: #999;
+  margin: 0 0 4px;
+}
+.sobre-card-valor {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e74c3c;
+  margin: 0 0 2px;
+}
+.sobre-card-desc {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.sobre-steps {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sobre-steps li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+}
+.sobre-step-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e74c3c;
+  min-width: 24px;
+  padding-top: 1px;
+}
+.sobre-step-txt {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+.sobre-step-txt strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.sobre-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 1rem 0;
+}
+.sobre-benefit {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 0.875rem;
+  border-radius: 10px;
+  background: #f7f7f7;
+}
+.sobre-benefit-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.sobre-benefit-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 3px;
+}
+.sobre-benefit-texto {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sobre-divider {
+  border: none;
+  border-top: 1px solid #e5e5e5;
+  margin: 2rem 0;
+}
+
+.sobre-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+.sobre-footer span {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.sobre-footer p {
+  font-size: 15px;
+  color: #666;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.sobre-voltar {
+  text-align: center;
+  margin-top: 2rem;
+}
+.sobre-voltar button {
+  background: rgba(0, 0, 0, 0.878);
+  color: #fff;
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sobre-voltar button:hover {
+  background: #c0392b;
+}
