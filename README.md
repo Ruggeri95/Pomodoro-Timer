@@ -1,16 +1,20 @@
-# React + Vite
+# 🍅 Pomodoro Timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um cronômetro de produtividade baseado na técnica Pomodoro, desenvolvido durante o curso de React da OneBitCode. O objetivo é ajudar usuários a gerenciarem seu tempo de foco e descanso de forma simples e eficiente.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este projeto foi construído com as seguintes tecnologias:
 
-## React Compiler
+* **React** (Biblioteca para interfaces)
+* **Vite** (Build tool rápida para desenvolvimento)
+* **JavaScript (ES6+)**
+* **CSS3** (Estilização customizada)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Como rodar o projeto localmente
 
-## Expanding the ESLint configuration
+Siga os passos abaixo para baixar e executar o projeto na sua máquina:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clonar o repositório
+```bash
+git clone [https://github.com/Ruggeri95/Pomodoro-Timer.git](https://github.com/Ruggeri95/Pomodoro-Timer.git)
