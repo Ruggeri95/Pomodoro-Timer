@@ -68,6 +68,10 @@ export default function usePomodoroCollection() {
         })
     }
 
+    useEffect(() => {
+        document.title = `${formatarTempo(tempo)} - Pomodoro`;
+    }, [tempo]);
+
     function tocarAlarme() {
     const contexto = new AudioContext()
     const oscilador = contexto.createOscillator()
@@ -109,6 +113,7 @@ export default function usePomodoroCollection() {
                 if (state <= 0) {
                     clearInterval(intervaloGlobal)
                     intervaloGlobal = null
+                    setAtivo(false);
                     tocarAlarme()
                     return 0
                 }
