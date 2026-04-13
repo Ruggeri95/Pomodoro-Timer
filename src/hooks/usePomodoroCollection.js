@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { STATUS_POMODORO, CORES_STATUS, TIPO_POMODORO } from "../constants/pomodoro";
 
 let intervaloGlobal = null
@@ -35,11 +35,15 @@ export default function usePomodoroCollection() {
         return localStorage.getItem("obc-status") || STATUS_POMODORO.ESTUDAR
     })
 
-
     const [historyCycle, setHistoryCycle] = useState(() => {
         const saved = localStorage.getItem("obc-history-cycle")
         return saved ? JSON.parse(saved) : []
     })
+
+    // Ref para guardar o timestamp de quando o timer foi iniciado
+    // e quantos segundos restavam nesse momento
+    const timestampInicio = useRef(null)
+    const tempoNoInicio = useRef(null)
 
     const addHistory = (statusAtual, tarefa, tempo) => {
         const id = Math.floor(Math.random() * 1000000)
@@ -73,30 +77,56 @@ export default function usePomodoroCollection() {
     }, [tempo]);
 
     function tocarAlarme() {
-    const contexto = new AudioContext()
-    const oscilador = contexto.createOscillator()
-    const ganho = contexto.createGain()
+        const contexto = new AudioContext()
+        const oscilador = contexto.createOscillator()
+        const ganho = contexto.createGain()
 
-    oscilador.connect(ganho)
-    ganho.connect(contexto.destination)
+        oscilador.connect(ganho)
+        ganho.connect(contexto.destination)
 
-    oscilador.type = "sine"
-    oscilador.frequency.setValueAtTime(880, contexto.currentTime)
+        oscilador.type = "sine"
+        oscilador.frequency.setValueAtTime(880, contexto.currentTime)
 
-    ganho.gain.setValueAtTime(1, contexto.currentTime)
-    ganho.gain.exponentialRampToValueAtTime(0.001, contexto.currentTime + 1.5)
+        ganho.gain.setValueAtTime(1, contexto.currentTime)
+        ganho.gain.exponentialRampToValueAtTime(0.001, contexto.currentTime + 1.5)
 
-    oscilador.start(contexto.currentTime)
-    oscilador.stop(contexto.currentTime + 1.5)
-}
+        oscilador.start(contexto.currentTime)
+        oscilador.stop(contexto.currentTime + 1.5)
+    }
 
-    function iniciar() {
-        if (intervaloGlobal){
-            clearInterval(intervaloGlobal)
+    function iniciarIntervalo(tempoAtual) {
+        timestampInicio.current = Date.now()
+        tempoNoInicio.current = tempoAtual
+
+        intervaloGlobal = setInterval(() => {
+            const segundosPassados = Math.floor((Date.now() - timestampInicio.current) / 1000)
+            const novoTempo = tempoNoInicio.current - segundosPassados
+
+            if (novoTempo <= 0) {
+                clearInterval(intervaloGlobal)
                 intervaloGlobal = null
                 setAtivo(false)
                 localStorage.setItem("obc-ativo", "false")
+                localStorage.setItem("obc-tempo", 0)
+                setTempo(0)
+                tocarAlarme()
                 return
+            }
+
+            localStorage.setItem("obc-tempo", novoTempo)
+            setTempo(novoTempo)
+        }, 500) 
+    }
+
+    function iniciar() {
+        if (intervaloGlobal) {
+            clearInterval(intervaloGlobal)
+            intervaloGlobal = null
+            timestampInicio.current = null
+            tempoNoInicio.current = null
+            setAtivo(false)
+            localStorage.setItem("obc-ativo", "false")
+            return
         }
 
         if (novoCiclo) {
@@ -108,25 +138,15 @@ export default function usePomodoroCollection() {
 
         setAtivo(true)
         localStorage.setItem("obc-ativo", "true")
-        intervaloGlobal = setInterval(() => {
-            setTempo(state => {
-                if (state <= 0) {
-                    clearInterval(intervaloGlobal)
-                    intervaloGlobal = null
-                    setAtivo(false);
-                    tocarAlarme()
-                    return 0
-                }
-                const novoTempo = state - 1
-                localStorage.setItem("obc-tempo", novoTempo)
-                return novoTempo
-            })
-        }, 1000);
+        const tempoAtual = Number(localStorage.getItem("obc-tempo")) || tempo
+        iniciarIntervalo(tempoAtual)
     }
 
     function resetar() {
         clearInterval(intervaloGlobal)
         intervaloGlobal = null
+        timestampInicio.current = null
+        tempoNoInicio.current = null
         setAtivo(false)
         localStorage.setItem("obc-ativo", "false")
         setNovoCiclo(true)
@@ -160,22 +180,10 @@ export default function usePomodoroCollection() {
 
     useEffect(() => {
         if (ativo && !intervaloGlobal) {
-            intervaloGlobal = setInterval(() => {
-                setTempo(state => {
-                    if (state <= 0) {
-                        clearInterval(intervaloGlobal)
-                        intervaloGlobal = null
-                        return 0
-                    }
-                    const novoTempo = state - 1
-                    localStorage.setItem("obc-tempo", novoTempo)
-                    return novoTempo
-                })
-            }, 1000)
+            const tempoSalvo = Number(localStorage.getItem("obc-tempo")) || tempo
+            iniciarIntervalo(tempoSalvo)
         }
-        return () => {
-
-        }
+        return () => {}
     }, [])
 
     function formatarTempo(segundos) {
